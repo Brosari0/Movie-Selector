@@ -1,17 +1,36 @@
 import { useState } from "react";
 
-export default function Quiz(quizNum) {
-  let [formData, setFormData] = useState({
-    date: '',
-    genre: '',
-    actor: '',
-    director: '',
-    rating: ''
-  })
+export default function Quiz() {
+  const [quizNum, setQuizNum] = useState(0);
+  const [formData, setFormData] = useState({});
 
-  function handleChange(e) {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  }
+  const questions = [
+    'What your favorite genre?',
+    'Who is your favorite actor?',
+    "Do you want a series or a movie?",
+    "Animated or not?",
+    "Anything else you'd like?",
+    // Add more questions here
+  ];
+
+  const handleAnswerChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleNext = () => {
+    if (quizNum < questions.length - 1) {
+      setQuizNum(quizNum + 1);
+    }
+  };
+  const handlePrev = () => {
+    if (quizNum > 0) {
+      setQuizNum(quizNum - 1);
+    }
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,11 +39,16 @@ export default function Quiz(quizNum) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>{"Year"}</label>
-        <input name="date" type="number" min="1900" max="2023" step="1" onChange={handleChange} />
-        {quizNum === 10 ? <button type="Submit">Submit</button> : ""}
-      </form>
+    <label>{questions[quizNum]}</label>
+    <input
+      type="text"
+      name={`answer-${quizNum}`}
+      value={formData[`answer-${quizNum}`] || ''}
+      onChange={handleAnswerChange}
+    />
+    {quizNum > 0 ? <button onClick={handlePrev}>Prev</button> : ""}
+    {quizNum < questions.length - 1 ? <button onClick={handleNext}>Next</button> : ""}
+    {quizNum === questions.length - 1 ? <button type="submit" onClick={handleSubmit}>Submit</button> : ""}
     </div>
-  )
+  );
 }
