@@ -15,17 +15,15 @@ export default function Quiz(quizNum) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('You clicked Submit');
-
+    console.log('You clicked Submit', quizNum);
   }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>Year</label>
+        <label>{"Year"}</label>
         <input name="date" type="number" min="1900" max="2023" step="1" onChange={handleChange} />
-        <label>Genre</label>
-        <input type="text" />
-        <button type="submit">Submit</button>
+        {quizNum === 10 ? <button type="Submit">Submit</button> : ""}
       </form>
     </div>
   )
