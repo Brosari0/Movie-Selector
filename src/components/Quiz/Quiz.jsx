@@ -47,9 +47,15 @@ export default function Quiz() {
     }
   };
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log('You clicked Submit', quizNum);
+    try {
+      const payload = formData;
+      const newQuiz = await quizzesAPI.saveAnswers(payload);
+    } catch {
+      return "Answers could not be saved";
+    }
+    
   }
 
   return (
