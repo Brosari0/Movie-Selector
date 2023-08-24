@@ -23,6 +23,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--tan-4);
   padding: 2vmin;
+  margin-left: 24vmin;
   height: 100vh;
 }
 
